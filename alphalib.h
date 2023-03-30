@@ -19,7 +19,9 @@ alpha_t* createAlpha(void);
 
 letter_t* createLetter(char letter);
 
-letter_t* findLetter(char letter);
+letter_t* findLetter(alpha_t* alpha, char letter);
+
+int insertLetter(alpha_t* alpha, letter_t* letterNode);
 
 int hasLetter(alpha_t* alpha, char letter);
 

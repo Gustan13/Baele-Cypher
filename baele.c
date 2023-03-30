@@ -11,7 +11,7 @@ int main (int argc, char *argv[])
     
     letter->character = tolower(letter->character);
 
-    puts(&letter->character);
+    puts(&findLetter(alpha, 'a')->character);
 
     return 0;
 }

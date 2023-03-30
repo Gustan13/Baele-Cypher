@@ -24,3 +24,11 @@ letter_t* createLetter(char letter) {
 
     return letterNode;
 }
+
+letter_t* findLetter(alpha_t* alpha, char letter) {
+    for (letter_t* i = alpha->first; i != NULL; i = i->prox) {
+        if (i->character == letter)
+            return i;
+    }
+    return NULL;
+}
