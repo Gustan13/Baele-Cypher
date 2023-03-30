@@ -1,3 +1,4 @@
 *.o
 baele
 settings.json
+.vscode
