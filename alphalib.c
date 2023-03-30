@@ -13,3 +13,14 @@ alpha_t* createAlpha(void) {
 
     return alpha;
 }
+
+letter_t* createLetter(char letter) {
+    letter_t* letterNode = malloc(sizeof(letter_t));
+
+    letterNode->character = letter;
+    letterNode->numCodes = 0;
+    letterNode->prev = NULL;
+    letterNode->prox = NULL;
+
+    return letterNode;
+}

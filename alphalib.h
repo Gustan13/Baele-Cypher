@@ -6,6 +6,7 @@ typedef struct letter {
     int numCodes;
 
     struct letter *prox;
+    struct letter *prev;
 } letter_t;
 
 typedef struct alpha {
@@ -16,7 +17,7 @@ typedef struct alpha {
 
 alpha_t* createAlpha(void);
 
-letter_t* createLetter(alpha_t* alpha, char letter);
+letter_t* createLetter(char letter);
 
 letter_t* findLetter(char letter);
 
