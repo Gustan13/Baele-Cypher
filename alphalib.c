@@ -77,3 +77,19 @@ int insertLetter(alpha_t* alpha, letter_t* letterNode) {
 
     return SUCCESS;
 }
+
+int hasLetter(alpha_t* alpha, char letter) {
+    if (findLetter(alpha, letter) == NULL)
+        return FAILURE;
+    return SUCCESS;
+}
+
+int addCode(alpha_t* alpha, char letter, int num) {
+    letter_t* ptr = findLetter(alpha, letter);
+
+    ptr->numCodes++;
+    ptr->codes = realloc(ptr->codes, sizeof(int) * ptr->numCodes);
+    ptr->codes[ptr->numCodes - 1] = num;
+
+    return SUCCESS;
+}

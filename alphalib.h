@@ -2,7 +2,7 @@
 
 typedef struct letter {
     char character;
-    int *code;
+    int *codes;
     int numCodes;
 
     struct letter *prox;

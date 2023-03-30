@@ -16,5 +16,9 @@ int main (int argc, char *argv[])
         puts(&findLetter(alpha, i)->character);
     }    
 
+    addCode(alpha, 65, 13);
+
+    printf("%d", findLetter(alpha, 65)->codes[0]);
+
     return 0;
 }
