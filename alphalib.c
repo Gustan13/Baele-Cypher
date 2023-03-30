@@ -4,6 +4,9 @@
 
 #include "alphalib.h"
 
+#define SUCCESS 0
+#define FAILURE 1
+
 alpha_t* createAlpha(void) {
     alpha_t *alpha = malloc(sizeof(alpha_t));
     
@@ -31,4 +34,46 @@ letter_t* findLetter(alpha_t* alpha, char letter) {
             return i;
     }
     return NULL;
+}
+
+int insertLetter(alpha_t* alpha, letter_t* letterNode) {
+    letter_t* aux;
+
+    if (findLetter(alpha, letterNode->character) != NULL)
+        return FAILURE;
+
+    if (alpha->first == NULL) {
+        alpha->first = letterNode;
+        alpha->last = letterNode;
+        return SUCCESS;
+    }
+
+    if (letterNode->character < alpha->first->character) {
+        aux = alpha->first;
+        alpha->first = letterNode;
+        letterNode->prox = aux;
+        aux->prev = letterNode;
+        return SUCCESS;
+    }
+
+    if (letterNode->character > alpha->last->character) {
+        aux = alpha->last;
+        alpha->last->prox = letterNode;
+        alpha->last = letterNode;
+        letterNode->prev = aux;
+        return SUCCESS;
+    }
+
+    for (letter_t* i = alpha->first->prox; i != alpha->last; i++) {
+        if (letterNode->character < i->character) {
+            aux = i->prev;
+            i->prev = letterNode;
+            letterNode->prox = i;
+            aux->prox = letterNode;
+            letterNode->prev = aux;
+            break;
+        }
+    }
+
+    return SUCCESS;
 }

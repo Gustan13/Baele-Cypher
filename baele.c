@@ -4,14 +4,17 @@
 
 #include "alphalib.h"
 
+#define ASCII_TABLE 
+
 int main (int argc, char *argv[])
 {
     alpha_t* alpha = createAlpha();
-    letter_t* letter = createLetter(65);
-    
-    letter->character = tolower(letter->character);
 
-    puts(&findLetter(alpha, 'a')->character);
+    for (int i = 32; i < 127; i++) {
+        letter_t* letter = createLetter(i);
+        insertLetter(alpha, letter);
+        puts(&findLetter(alpha, i)->character);
+    }    
 
     return 0;
 }
