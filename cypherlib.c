@@ -27,13 +27,41 @@ int createCypher(FILE* file, alpha_t* alpha) {
 int printCypher(FILE* toWrite, alpha_t* alpha) {
     for (letter_t* i = alpha->first; i != NULL; i = i->prox) {
         fprintf(toWrite, "%c : ", i->character);
-        for (int j = 0; j < i->numCodes; j++) {
-            if (j != i->numCodes -1) 
-                fprintf(toWrite, "%d ", i->codes[j]);
-            else
-                fprintf(toWrite, "\n");
+        for (int j = 0; j < i->numCodes; j++)
+            fprintf(toWrite, "%d ", i->codes[j]);
+        fprintf(toWrite, "\n");
+    }
+
+    return 1;
+}
+
+int cypherMessage(FILE* message, alpha_t* alpha) {
+    int* message_d;
+    int size = 0;
+
+    do {
+        char c = fgetc(message);
+
+        size++;
+        message_d = realloc(message_d, sizeof(int) * size);
+
+        if (c == 32) {
+            message_d[size - 1] = -1;
+            continue; 
+        }
+
+        letter_t* t = findLetter(alpha, c);
+        if (t != NULL) {
+            message_d[size - 1] = t->codes[rand() % t->numCodes]; 
         }
     }
+    while (!feof(message));
+    
+    for (int i = 0; i < size - 1; i++)
+        printf("%d ", message_d[i]);
+
+    free(message_d);
+    message_d = NULL;
 
     return 1;
 }
