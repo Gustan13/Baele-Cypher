@@ -13,15 +13,17 @@ int main (int argc, char *argv[])
     alpha_t* alpha = createAlpha();
     FILE* file = fopen("exemplo.txt", "r");
 
-    char *c = malloc(sizeof(char) * 100);
+    char *c = malloc(sizeof(char) * 45);
     letter_t* aux;
 
-    for (int i = 0; i < 1000; i++) {
-        fscanf(file, " %s", c);
-        if (hasLetter(alpha, c[0]) < 1)
-            continue;
-        aux = createLetter(c[0]);
-        insertLetter(alpha, aux);
+    int i = 0;
+    while (fscanf(file, " %s", c) == 1) {
+        if (hasLetter(alpha, c[0]) == 1) {
+            aux = createLetter(c[0]);
+            insertLetter(alpha, aux);
+        }
+        addCode(alpha, c[0], i);
+        i++;
     }
 
     // for (int i = 0; i < 5; i++) {
@@ -29,8 +31,13 @@ int main (int argc, char *argv[])
     //     insertLetter(alpha, letter);
     // }
 
-    for (letter_t* i = alpha->first; i != NULL; i = i->prox)
-        printf("%c ", i->character);
+    for (letter_t* i = alpha->first; i != NULL; i = i->prox) {
+        printf("%c : ", i->character);
+        for (int j = 0; j < i->numCodes; j++) {
+            printf("%d ", i->codes[j]);
+        }
+        printf("\n");
+    }
 
     alpha = destroyAlpha(alpha);
     free(c);

@@ -26,6 +26,8 @@ alpha_t* destroyAlpha(alpha_t* head) {
     while (current != NULL) {
         temp = current;
         current = current->prox;
+        free(temp->codes);
+        temp->codes = NULL;
         free(temp);
         temp = NULL;
     }
