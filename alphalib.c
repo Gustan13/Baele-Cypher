@@ -113,3 +113,15 @@ int addCode(alpha_t* alpha, char letter, int num) {
 
     return SUCCESS;
 }
+
+int printAlpha(alpha_t* alpha) {
+    for (letter_t* i = alpha->first; i != NULL; i = i->prox) {
+        printf("%c : ", i->character);
+        for (int j = 0; j < i->numCodes; j++) {
+            printf("%d ", i->codes[j]);
+        }
+        printf("\n");
+    }
+
+    return 1;
+}

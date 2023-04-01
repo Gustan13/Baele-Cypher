@@ -23,3 +23,17 @@ int createCypher(FILE* file, alpha_t* alpha) {
 
     return 0;
 }
+
+int printCypher(FILE* toWrite, alpha_t* alpha) {
+    for (letter_t* i = alpha->first; i != NULL; i = i->prox) {
+        fprintf(toWrite, "%c : ", i->character);
+        for (int j = 0; j < i->numCodes; j++) {
+            if (j != i->numCodes -1) 
+                fprintf(toWrite, "%d ", i->codes[j]);
+            else
+                fprintf(toWrite, "\n");
+        }
+    }
+
+    return 1;
+}

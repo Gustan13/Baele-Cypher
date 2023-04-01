@@ -28,3 +28,5 @@ int insertLetter(alpha_t* alpha, letter_t* letterNode);
 int hasLetter(alpha_t* alpha, char letter);
 
 int addCode(alpha_t* alpha, char letter, int num);
+
+int printAlpha(alpha_t* alpha);
