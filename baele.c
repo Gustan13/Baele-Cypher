@@ -16,7 +16,7 @@ int main (int argc, char *argv[])
     char *c = malloc(sizeof(char) * 100);
     letter_t* aux;
 
-    for (int i = 0; i < 500; i++) {
+    for (int i = 0; i < 1000; i++) {
         fscanf(file, " %s", c);
         if (hasLetter(alpha, c[0]) < 1)
             continue;
