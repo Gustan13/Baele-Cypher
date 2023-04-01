@@ -64,7 +64,7 @@ int insertLetter(alpha_t* alpha, letter_t* letterNode) {
         return SUCCESS;
     }
 
-    for (letter_t* i = alpha->first->prox; i != NULL; i++) {
+    for (letter_t* i = alpha->first->prox; i != NULL; i = i->prox) {
         if (letterNode->character < i->character) {
             aux = i->prev;
             i->prev = letterNode;

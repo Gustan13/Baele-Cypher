@@ -10,4 +10,4 @@ baele.o: baele.c
 	gcc -o baele.o baele.c -c
 
 clean:
-	rm -rf *.o *~ main
+	rm -rf *.o *~ baele
