@@ -13,10 +13,10 @@ int main (int argc, char *argv[])
     alpha_t* alpha = createAlpha();
     FILE* file = fopen("exemplo.txt", "r");
 
-    char *c = malloc(sizeof(char) * 50);
+    char *c = malloc(sizeof(char) * 100);
     letter_t* aux;
 
-    for (int i = 0; i < 18; i++) {
+    for (int i = 0; i < 500; i++) {
         fscanf(file, " %s", c);
         if (hasLetter(alpha, c[0]) < 1)
             continue;
@@ -31,6 +31,9 @@ int main (int argc, char *argv[])
 
     for (letter_t* i = alpha->first; i != NULL; i = i->prox)
         printf("%c ", i->character);
+
+    alpha = destroyAlpha(alpha);
+    free(c);
 
     return 0;
 }

@@ -17,6 +17,8 @@ typedef struct alpha {
 
 alpha_t* createAlpha(void);
 
+alpha_t* destroyAlpha(alpha_t* head);
+
 letter_t* createLetter(char letter);
 
 letter_t* findLetter(alpha_t* alpha, char letter);

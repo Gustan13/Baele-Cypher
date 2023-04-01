@@ -7,6 +7,7 @@
 #define SUCCESS 0
 #define FAILURE 1
 
+//  RETORNA UMA ESTRUTURA ALPHA_T ALOCADA
 alpha_t* createAlpha(void) {
     alpha_t *alpha = malloc(sizeof(alpha_t));
     
@@ -17,6 +18,23 @@ alpha_t* createAlpha(void) {
     return alpha;
 }
 
+//  RECEBE UM PONTEIRO DE ALPHABETO
+//  RETORNA UM PONTEIRO DE ALPHABETO COMPLETAMENTE VAZIO
+alpha_t* destroyAlpha(alpha_t* head) {
+    letter_t* current = head->first;
+    letter_t* temp;
+    while (current != NULL) {
+        temp = current;
+        current = current->prox;
+        free(temp);
+        temp = NULL;
+    }
+    free(head);
+    return NULL;
+}
+
+//  RECEBE CHAR
+//  RETORNA PONTEIRO PARA UM LETTER_T CUJO CHARACTER É O CHAR RECEBIDO
 letter_t* createLetter(char letter) {
     letter_t* letterNode = malloc(sizeof(letter_t));
 
