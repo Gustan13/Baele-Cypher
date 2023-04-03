@@ -30,11 +30,19 @@ int main (int argc, char *argv[])
         return 1;
     }
 
+    FILE* dMessage = fopen("textos/dMessage.txt", "w+");
+    if (dMessage == NULL) {
+        perror("File could not be loaded");
+        return 1;
+    }
+
     createCypher(file, alpha);
 
     printCypher(cypher, alpha);
 
-    cypherMessage(message, alpha);
+    // cypherMessage(message, dMessage, alpha);
+
+    decypherMessage_b(dMessage, message, alpha);
 
     alpha = destroyAlpha(alpha);
 

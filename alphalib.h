@@ -23,6 +23,8 @@ letter_t* createLetter(char letter);
 
 letter_t* findLetter(alpha_t* alpha, char letter);
 
+char findLetterFromNum(alpha_t* alpha, int num);
+
 int insertLetter(alpha_t* alpha, letter_t* letterNode);
 
 int hasLetter(alpha_t* alpha, char letter);

@@ -56,6 +56,16 @@ letter_t* findLetter(alpha_t* alpha, char letter) {
     return NULL;
 }
 
+char findLetterFromNum(alpha_t* alpha, int num) {
+    for (letter_t* i = alpha->first; i != NULL; i = i->prox) {
+        for (int j = 0; j < i->numCodes; j++) {
+            if (i->codes[j] == num)
+                return i->character;
+        }
+    }
+    return 32;
+}
+
 int insertLetter(alpha_t* alpha, letter_t* letterNode) {
     letter_t* aux;
 
