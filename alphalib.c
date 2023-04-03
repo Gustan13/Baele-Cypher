@@ -42,6 +42,7 @@ letter_t* createLetter(char letter) {
 
     letterNode->character = letter;
     letterNode->numCodes = 0;
+    letterNode->codes = malloc(sizeof(int));
     letterNode->prev = NULL;
     letterNode->prox = NULL;
 

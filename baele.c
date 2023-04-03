@@ -24,13 +24,13 @@ int main (int argc, char *argv[])
         return 1;
     }
 
-    FILE* message = fopen("textos/message.txt", "r");
+    FILE* message = fopen("textos/message.txt", "w");
     if (message == NULL) {
         perror("File could not be loaded");
         return 1;
     }
 
-    FILE* dMessage = fopen("textos/dMessage.txt", "w+");
+    FILE* dMessage = fopen("textos/dMessage.txt", "r");
     if (dMessage == NULL) {
         perror("File could not be loaded");
         return 1;
@@ -40,15 +40,16 @@ int main (int argc, char *argv[])
 
     printCypher(cypher, alpha);
 
-    // cypherMessage(message, dMessage, alpha);
+    //cypherMessage(dMessage, message, alpha);
 
     decypherMessage_b(dMessage, message, alpha);
 
     alpha = destroyAlpha(alpha);
 
     fclose(file);
-    fclose(file);
-    fclose(file);
+    fclose(cypher);
+    fclose(message);
+    fclose(dMessage);
 
     return 0;
 }

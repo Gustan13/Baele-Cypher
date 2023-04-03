@@ -42,9 +42,6 @@ int cypherMessage(FILE* message, FILE* returnFile, alpha_t* alpha) {
     do {
         char c = fgetc(message);
 
-        size++;
-        message_d = realloc(message_d, sizeof(int) * size);
-
         if (c == 32) {
             message_d[size - 1] = -1;
             continue; 
@@ -52,6 +49,8 @@ int cypherMessage(FILE* message, FILE* returnFile, alpha_t* alpha) {
 
         letter_t* t = findLetter(alpha, c);
         if (t != NULL) {
+            size++;
+            message_d = realloc(message_d, sizeof(int) * size);
             message_d[size - 1] = t->codes[rand() % t->numCodes]; 
         }
     }
@@ -72,16 +71,19 @@ int decypherMessage_b(FILE* message, FILE* returnFile, alpha_t* alpha) {
 
     do {
         char* c = malloc(sizeof(char) * 46);
-        int num;
+        char aux = '0';
+        int num = 0;
 
         size++;
         mensagem_d = realloc(mensagem_d, sizeof(char) * size);
 
         fscanf(message, "%s", c);
 
+        num = atoi(c);
+        aux = findLetterFromNum(alpha, num);
+
         if (c[0] != '-') {
-            num = atoi(c);
-            mensagem_d[size - 1] = findLetterFromNum(alpha, num);
+            mensagem_d[size - 1] = aux;
         } else {
             mensagem_d[size - 1] = 32;
         }
