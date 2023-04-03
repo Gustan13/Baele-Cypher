@@ -36,13 +36,13 @@ int main (int argc, char *argv[])
         return 1;
     }
 
-    createCypher(file, alpha);
+    createCypherFromBook(file, alpha);
 
-    printCypher(cypher, alpha);
+    printCypherToFile(cypher, alpha);
 
     //cypherMessage(dMessage, message, alpha);
 
-    decypherMessage_b(dMessage, message, alpha);
+    decypherMessage_type_b(dMessage, message, alpha);
 
     alpha = destroyAlpha(alpha);
 
