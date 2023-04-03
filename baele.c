@@ -18,7 +18,7 @@ int main (int argc, char *argv[])
         return 1;
     }
 
-    FILE* cypher = fopen("textos/cifra.txt", "w+");
+    FILE* cypher = fopen("textos/cifra.txt", "r");
     if (cypher == NULL) {
         perror("File could not be loaded");
         return 1;
@@ -36,9 +36,9 @@ int main (int argc, char *argv[])
         return 1;
     }
 
-    createCypherFromBook(file, alpha);
+    createCypherFromKeyFile(cypher, alpha);
 
-    printCypherToFile(cypher, alpha);
+    printAlpha(alpha);
 
     //cypherMessage(dMessage, message, alpha);
 

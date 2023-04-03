@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "cypherlib.h"
 
@@ -11,7 +12,7 @@ long findSizeOfFile(FILE* file) {
 
     rewind(file);
 
-    return size/sizeof(long);
+    return size;
 }
 
 int createCypherFromBook(FILE* book, alpha_t* alpha) {
@@ -35,10 +36,31 @@ int createCypherFromBook(FILE* book, alpha_t* alpha) {
     return 0;
 }
 
+// FIX
 int createCypherFromKeyFile(FILE* keys, alpha_t* alpha) {
-    char *line = malloc(sizeof(char));
     long size = findSizeOfFile(keys);
+    char *line = malloc(sizeof(char) * size);
 
+    while (fgets(line, size, keys) != NULL) {
+        char* token = strtok(line, ":");
+        char c = token[0];
+
+        letter_t* letter = createLetter(c);
+        insertLetter(alpha, letter);
+
+        while (token != NULL) {
+            token = strtok(NULL, " ");
+
+            printf("%s ", token);
+
+            if (token != NULL) {
+                addCode(alpha, c, atoi(token));
+            }
+        }
+        puts("\n");
+    }
+
+    return 0;
 }
 
 int printCypherToFile(FILE* toWrite, alpha_t* alpha) {
@@ -60,6 +82,8 @@ int cypherMessage(FILE* message, FILE* returnFile, alpha_t* alpha) {
         char c = fgetc(message);
 
         if (c == 32) {
+            size++;
+            message_d = realloc(message_d, sizeof(int) * size);
             message_d[size - 1] = -1;
             continue; 
         }
