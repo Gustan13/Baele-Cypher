@@ -97,7 +97,7 @@ int cypherMessage(FILE* message, FILE* returnFile, alpha_t* alpha) {
     }
     while (!feof(message));
     
-    for (int i = 0; i < size - 1; i++)
+    for (int i = 0; i < size; i++)
         fprintf(returnFile, "%d ", message_d[i]);
 
     free(message_d);
