@@ -21,6 +21,9 @@ alpha_t* createAlpha(void) {
 //  RECEBE UM PONTEIRO DE ALPHABETO
 //  RETORNA UM PONTEIRO DE ALPHABETO COMPLETAMENTE VAZIO
 alpha_t* destroyAlpha(alpha_t* head) {
+    if (head == NULL)
+        return NULL;
+
     letter_t* current = head->first;
     letter_t* temp;
     while (current != NULL) {

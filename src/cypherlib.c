@@ -16,7 +16,7 @@ long findSizeOfFile(FILE* file) {
 }
 
 int createCypherFromBook(FILE* book, alpha_t* alpha) {
-    char *c = malloc(sizeof(char) * 45);
+    char *c = malloc(sizeof(char) * 100);
     letter_t* aux;
 
     int i = 0;
@@ -51,13 +51,13 @@ int createCypherFromKeyFile(FILE* keys, alpha_t* alpha) {
         while (token != NULL) {
             token = strtok(NULL, " ");
 
-            printf("%s ", token);
+            //printf("%s ", token);
 
             if (token != NULL) {
                 addCode(alpha, c, atoi(token));
             }
         }
-        puts("\n");
+        //puts("\n");
     }
 
     return 0;
@@ -66,8 +66,9 @@ int createCypherFromKeyFile(FILE* keys, alpha_t* alpha) {
 int printCypherToFile(FILE* toWrite, alpha_t* alpha) {
     for (letter_t* i = alpha->first; i != NULL; i = i->prox) {
         fprintf(toWrite, "%c : ", i->character);
-        for (int j = 0; j < i->numCodes; j++)
+        for (int j = 0; j < i->numCodes; j++) {
             fprintf(toWrite, "%d ", i->codes[j]);
+        }
         fprintf(toWrite, "\n");
     }
 
@@ -106,7 +107,7 @@ int cypherMessage(FILE* message, FILE* returnFile, alpha_t* alpha) {
     return 1;
 }
 
-int decypherMessage_type_b(FILE* message, FILE* returnFile, alpha_t* alpha) {
+int decypherMessage(FILE* message, FILE* returnFile, alpha_t* alpha) {
     char* mensagem_d = malloc(sizeof(char));
     int size = 0;
 
