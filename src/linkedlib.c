@@ -52,6 +52,8 @@ letter_t* createLetter(char letter) {
     return letterNode;
 }
 
+// RECEBE UMA LISTA E UM CHAR
+// ENCONTRA O NODO QUE PERTENCE O CHAR
 letter_t* findLetter(list_t* list, char letter) {
     for (letter_t* i = list->first; i != NULL; i = i->prox) {
         if (i->character == letter)
@@ -60,6 +62,8 @@ letter_t* findLetter(list_t* list, char letter) {
     return NULL;
 }
 
+// RECEBE UMA LISTA E UM INT
+// ENCONTRA O CHAR DO NODO QUE POSSUI O INT COMO CÓDIGO
 char findLetterFromNum(list_t* list, int num) {
     for (letter_t* i = list->first; i != NULL; i = i->prox) {
         for (int j = 0; j < i->numCodes; j++) {
@@ -70,6 +74,9 @@ char findLetterFromNum(list_t* list, int num) {
     return 32;
 }
 
+// RECEBE LISTA E UM NODO LETTER_T
+// INSERE O NODO DE FORMA ORDENADA NA LISTA LINKADA
+// RETORNA SUCCESS SE O PROCEDIMENTO OCORREU CORRETAMENTE E FAILURE CASO CONTRÁRIO
 int insertLetter(list_t* list, letter_t* letterNode) {
     letter_t* aux;
 
@@ -112,12 +119,17 @@ int insertLetter(list_t* list, letter_t* letterNode) {
     return SUCCESS;
 }
 
+// RECEBE LISTA E UM CHAR
+// RETORNA SUCCESS SE EXISTE UM NODO COM A LETRA CHAR NA LISTA E FAILURE CASO CONTRÁRIO
 int hasLetter(list_t* list, char letter) {
     if (findLetter(list, letter) == NULL)
         return FAILURE;
     return SUCCESS;
 }
 
+// RECEBE UMA LISTA, UM CHAR E UM INT
+// ADICIONA O CÓDIGO (INT) PARA O NODO CONTENDO O CHAR
+// RETORNA SUCCESS SE FUNÇÃO FEITA CORRETAMENTE E FAILURE CASO CONTRÁRIO
 int addCode(list_t* list, char letter, int num) {
     letter_t* ptr = findLetter(list, letter);
 
@@ -128,6 +140,8 @@ int addCode(list_t* list, char letter, int num) {
     return SUCCESS;
 }
 
+// RECEBE LISTA
+// IMPRIME A LISTA PARA O STDOUT
 int printAlpha(list_t* list) {
     for (letter_t* i = list->first; i != NULL; i = i->prox) {
         printf("%c : ", i->character);
