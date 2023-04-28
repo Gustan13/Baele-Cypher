@@ -15,18 +15,18 @@ long findSizeOfFile(FILE* file) {
     return size;
 }
 
-int createCypherFromBook(FILE* book, alpha_t* alpha) {
+int createCypherFromBook(FILE* book, list_t* list) {
     char *c = malloc(sizeof(char) * 100);
     letter_t* aux;
 
     int i = 0;
 
     while (fscanf(book, " %s", c) == 1) {
-        if (hasLetter(alpha, c[0]) == 1) {
+        if (hasLetter(list, c[0]) == 1) {
             aux = createLetter(c[0]);
-            insertLetter(alpha, aux);
+            insertLetter(list, aux);
         }
-        addCode(alpha, c[0], i);
+        addCode(list, c[0], i);
         i++;
     }
 
@@ -37,7 +37,7 @@ int createCypherFromBook(FILE* book, alpha_t* alpha) {
 }
 
 // FIX
-int createCypherFromKeyFile(FILE* keys, alpha_t* alpha) {
+int createCypherFromKeyFile(FILE* keys, list_t* list) {
     long size = findSizeOfFile(keys);
     char *line = malloc(sizeof(char) * size);
 
@@ -46,7 +46,7 @@ int createCypherFromKeyFile(FILE* keys, alpha_t* alpha) {
         char c = token[0];
 
         letter_t* letter = createLetter(c);
-        insertLetter(alpha, letter);
+        insertLetter(list, letter);
 
         while (token != NULL) {
             token = strtok(NULL, " ");
@@ -54,7 +54,7 @@ int createCypherFromKeyFile(FILE* keys, alpha_t* alpha) {
             //printf("%s ", token);
 
             if (token != NULL) {
-                addCode(alpha, c, atoi(token));
+                addCode(list, c, atoi(token));
             }
         }
         //puts("\n");
@@ -63,8 +63,8 @@ int createCypherFromKeyFile(FILE* keys, alpha_t* alpha) {
     return 0;
 }
 
-int printCypherToFile(FILE* toWrite, alpha_t* alpha) {
-    for (letter_t* i = alpha->first; i != NULL; i = i->prox) {
+int printCypherToFile(FILE* toWrite, list_t* list) {
+    for (letter_t* i = list->first; i != NULL; i = i->prox) {
         fprintf(toWrite, "%c : ", i->character);
         for (int j = 0; j < i->numCodes; j++) {
             fprintf(toWrite, "%d ", i->codes[j]);
@@ -75,7 +75,7 @@ int printCypherToFile(FILE* toWrite, alpha_t* alpha) {
     return 1;
 }
 
-int cypherMessage(FILE* message, FILE* returnFile, alpha_t* alpha) {
+int cypherMessage(FILE* message, FILE* returnFile, list_t* list) {
     int* message_d = malloc(sizeof(int));
     int size = 0;
 
@@ -89,7 +89,7 @@ int cypherMessage(FILE* message, FILE* returnFile, alpha_t* alpha) {
             continue; 
         }
 
-        letter_t* t = findLetter(alpha, c);
+        letter_t* t = findLetter(list, c);
         if (t != NULL) {
             size++;
             message_d = realloc(message_d, sizeof(int) * size);
@@ -107,7 +107,7 @@ int cypherMessage(FILE* message, FILE* returnFile, alpha_t* alpha) {
     return 1;
 }
 
-int decypherMessage(FILE* message, FILE* returnFile, alpha_t* alpha) {
+int decypherMessage(FILE* message, FILE* returnFile, list_t* list) {
     char* mensagem_d = malloc(sizeof(char));
     int size = 0;
 
@@ -122,7 +122,7 @@ int decypherMessage(FILE* message, FILE* returnFile, alpha_t* alpha) {
         fscanf(message, "%s", c);
 
         num = atoi(c);
-        aux = findLetterFromNum(alpha, num);
+        aux = findLetterFromNum(list, num);
 
         if (c[0] != '-') {
             mensagem_d[size - 1] = aux;

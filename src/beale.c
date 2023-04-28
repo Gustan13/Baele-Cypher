@@ -79,7 +79,7 @@ int main (int argc, char *argv[])
         }
     };
 
-    alpha_t* alpha = createAlpha();
+    list_t* list = createList();
 
     if (hasCodeFlag && hasBook && hasCypher && hasOrigMessage && hasWriteFile) {
         book = fopen(bookName, "r");
@@ -87,9 +87,9 @@ int main (int argc, char *argv[])
         originalMessage = fopen(originalMessName, "r");
         writeFile = fopen(writeFileName, "w");
 
-        createCypherFromBook(book, alpha);
-        printCypherToFile(cypher, alpha);
-        cypherMessage(originalMessage, writeFile, alpha);
+        createCypherFromBook(book, list);
+        printCypherToFile(cypher, list);
+        cypherMessage(originalMessage, writeFile, list);
 
         fclose(cypher);
         fclose(originalMessage);
@@ -100,8 +100,8 @@ int main (int argc, char *argv[])
         originalMessage = fopen(codedMessName, "r");
         writeFile = fopen(writeFileName, "w");
 
-        createCypherFromKeyFile(cypher, alpha);
-        decypherMessage(originalMessage, writeFile, alpha);
+        createCypherFromKeyFile(cypher, list);
+        decypherMessage(originalMessage, writeFile, list);
 
         fclose(cypher);
         fclose(originalMessage);
@@ -111,8 +111,8 @@ int main (int argc, char *argv[])
         originalMessage = fopen(codedMessName, "r");
         writeFile = fopen(writeFileName, "w");
 
-        createCypherFromBook(book, alpha);
-        decypherMessage(originalMessage, writeFile, alpha);
+        createCypherFromBook(book, list);
+        decypherMessage(originalMessage, writeFile, list);
 
         fclose(book);
         fclose(originalMessage);
@@ -122,7 +122,7 @@ int main (int argc, char *argv[])
         return 1;
     }
 
-    alpha = destroyAlpha(alpha);
+    list = destroyList(list);
 
     return 0;
 }

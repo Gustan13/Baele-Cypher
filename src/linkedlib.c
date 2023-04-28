@@ -2,25 +2,25 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#include "alphalib.h"
+#include "linkedlib.h"
 
 #define SUCCESS 0
 #define FAILURE 1
 
 //  RETORNA UMA ESTRUTURA ALPHA_T ALOCADA
-alpha_t* createAlpha(void) {
-    alpha_t *alpha = malloc(sizeof(alpha_t));
+list_t* createList(void) {
+    list_t *list = malloc(sizeof(list_t));
     
-    alpha->first = NULL;
-    alpha->last = NULL;
-    alpha->numNodes = 0;
+    list->first = NULL;
+    list->last = NULL;
+    list->numNodes = 0;
 
-    return alpha;
+    return list;
 }
 
 //  RECEBE UM PONTEIRO DE ALPHABETO
 //  RETORNA UM PONTEIRO DE ALPHABETO COMPLETAMENTE VAZIO
-alpha_t* destroyAlpha(alpha_t* head) {
+list_t* destroyList(list_t* head) {
     if (head == NULL)
         return NULL;
 
@@ -52,16 +52,16 @@ letter_t* createLetter(char letter) {
     return letterNode;
 }
 
-letter_t* findLetter(alpha_t* alpha, char letter) {
-    for (letter_t* i = alpha->first; i != NULL; i = i->prox) {
+letter_t* findLetter(list_t* list, char letter) {
+    for (letter_t* i = list->first; i != NULL; i = i->prox) {
         if (i->character == letter)
             return i;
     }
     return NULL;
 }
 
-char findLetterFromNum(alpha_t* alpha, int num) {
-    for (letter_t* i = alpha->first; i != NULL; i = i->prox) {
+char findLetterFromNum(list_t* list, int num) {
+    for (letter_t* i = list->first; i != NULL; i = i->prox) {
         for (int j = 0; j < i->numCodes; j++) {
             if (i->codes[j] == num)
                 return i->character;
@@ -70,35 +70,35 @@ char findLetterFromNum(alpha_t* alpha, int num) {
     return 32;
 }
 
-int insertLetter(alpha_t* alpha, letter_t* letterNode) {
+int insertLetter(list_t* list, letter_t* letterNode) {
     letter_t* aux;
 
-    if (findLetter(alpha, letterNode->character) != NULL)
+    if (findLetter(list, letterNode->character) != NULL)
         return FAILURE;
 
-    if (alpha->first == NULL) {
-        alpha->first = letterNode;
-        alpha->last = letterNode;
+    if (list->first == NULL) {
+        list->first = letterNode;
+        list->last = letterNode;
         return SUCCESS;
     }
 
-    if (letterNode->character < alpha->first->character) {
-        aux = alpha->first;
-        alpha->first = letterNode;
+    if (letterNode->character < list->first->character) {
+        aux = list->first;
+        list->first = letterNode;
         letterNode->prox = aux;
         aux->prev = letterNode;
         return SUCCESS;
     }
 
-    if (letterNode->character > alpha->last->character) {
-        aux = alpha->last;
-        alpha->last->prox = letterNode;
-        alpha->last = letterNode;
+    if (letterNode->character > list->last->character) {
+        aux = list->last;
+        list->last->prox = letterNode;
+        list->last = letterNode;
         letterNode->prev = aux;
         return SUCCESS;
     }
 
-    for (letter_t* i = alpha->first->prox; i != NULL; i = i->prox) {
+    for (letter_t* i = list->first->prox; i != NULL; i = i->prox) {
         if (letterNode->character < i->character) {
             aux = i->prev;
             i->prev = letterNode;
@@ -112,14 +112,14 @@ int insertLetter(alpha_t* alpha, letter_t* letterNode) {
     return SUCCESS;
 }
 
-int hasLetter(alpha_t* alpha, char letter) {
-    if (findLetter(alpha, letter) == NULL)
+int hasLetter(list_t* list, char letter) {
+    if (findLetter(list, letter) == NULL)
         return FAILURE;
     return SUCCESS;
 }
 
-int addCode(alpha_t* alpha, char letter, int num) {
-    letter_t* ptr = findLetter(alpha, letter);
+int addCode(list_t* list, char letter, int num) {
+    letter_t* ptr = findLetter(list, letter);
 
     ptr->numCodes++;
     ptr->codes = realloc(ptr->codes, sizeof(int) * ptr->numCodes);
@@ -128,8 +128,8 @@ int addCode(alpha_t* alpha, char letter, int num) {
     return SUCCESS;
 }
 
-int printAlpha(alpha_t* alpha) {
-    for (letter_t* i = alpha->first; i != NULL; i = i->prox) {
+int printAlpha(list_t* list) {
+    for (letter_t* i = list->first; i != NULL; i = i->prox) {
         printf("%c : ", i->character);
         for (int j = 0; j < i->numCodes; j++) {
             printf("%d ", i->codes[j]);
