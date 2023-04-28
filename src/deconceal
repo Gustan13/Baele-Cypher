@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "deconceal.h"
+#include "linkedlib.h"
+
+// RECEBE ARQUIVO DE MENSAGEM CODIFICADA, ARQUIVO DE ESCRITA E UMA LISTA
+// DECODIFICA A MENSAGEM DE ACORDO COM A LISTA E ESCREVE NO ARQUIVO DE ESCRITA
+// RETORNA SUCCESS CASO FUNCIONAR E FAILURE CASO CONTRÁRIO
+int decypherMessage(FILE* message, FILE* returnFile, list_t* list) {
+    char* mensagem_d = malloc(sizeof(char));
+    int size = 0;
+
+    do {
+        char* c = malloc(sizeof(char) * 46);
+        char aux = '0';
+        int num = 0;
+
+        size++;
+        mensagem_d = realloc(mensagem_d, sizeof(char) * size);
+
+        fscanf(message, "%s", c);
+
+        num = atoi(c);
+        aux = findLetterFromNum(list, num);
+
+        if (c[0] != '-') {
+            mensagem_d[size - 1] = aux;
+        } else {
+            mensagem_d[size - 1] = 32;
+        }
+
+        free(c);
+        c = NULL;
+
+    } while (!feof(message));
+
+    for (int i = 0; i < size - 1; i++)
+        fprintf(returnFile, "%c", mensagem_d[i]);
+
+    free(mensagem_d);
+    mensagem_d = NULL;
+
+    return 1;
+}

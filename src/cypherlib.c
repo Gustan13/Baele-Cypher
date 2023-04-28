@@ -4,6 +4,8 @@
 
 #include "cypherlib.h"
 
+// RECEBE UM PONTEIRO DE ARQUIVO
+// RETORNA O TAMANHO DO ARQUIVO
 long findSizeOfFile(FILE* file) {
     long size;
 
@@ -15,6 +17,9 @@ long findSizeOfFile(FILE* file) {
     return size;
 }
 
+// RECEBE UM ARQUIVO E UMA LISTA
+// LÊ O ARQUIVO E CRIA A LISTA LINKADA DE ACORDO COM A CIFRA DE BEALE
+// RETORNA SUCCESS CASO FUNCIONAR E FAILURE CASO CONTRÁRIO
 int createCypherFromBook(FILE* book, list_t* list) {
     char *c = malloc(sizeof(char) * 100);
     letter_t* aux;
@@ -37,6 +42,9 @@ int createCypherFromBook(FILE* book, list_t* list) {
 }
 
 // FIX
+// RECEBE UM ARQUIVO E UMA LISTA
+// LÊ O ARQUIVO E CRIA A LISTA LINKADA SEGUINDO A ESTRUTURA DA CIFRA
+// RETORNA SUCCESS CASO FUNCIONAR E FAILURE CASO CONTRÁRIO
 int createCypherFromKeyFile(FILE* keys, list_t* list) {
     long size = findSizeOfFile(keys);
     char *line = malloc(sizeof(char) * size);
@@ -63,6 +71,9 @@ int createCypherFromKeyFile(FILE* keys, list_t* list) {
     return 0;
 }
 
+// RECEBE ARQUIVO E LISTA
+// IMPRIME A LISTA AO ARQUIVO
+// RETORNA SUCCESS CASO FUNCIONAR E FAILURE CASO CONTRÁRIO
 int printCypherToFile(FILE* toWrite, list_t* list) {
     for (letter_t* i = list->first; i != NULL; i = i->prox) {
         fprintf(toWrite, "%c : ", i->character);
@@ -75,38 +86,9 @@ int printCypherToFile(FILE* toWrite, list_t* list) {
     return 1;
 }
 
-int cypherMessage(FILE* message, FILE* returnFile, list_t* list) {
-    int* message_d = malloc(sizeof(int));
-    int size = 0;
-
-    do {
-        char c = fgetc(message);
-
-        if (c == 32) {
-            size++;
-            message_d = realloc(message_d, sizeof(int) * size);
-            message_d[size - 1] = -1;
-            continue; 
-        }
-
-        letter_t* t = findLetter(list, c);
-        if (t != NULL) {
-            size++;
-            message_d = realloc(message_d, sizeof(int) * size);
-            message_d[size - 1] = t->codes[rand() % t->numCodes]; 
-        }
-    }
-    while (!feof(message));
-    
-    for (int i = 0; i < size; i++)
-        fprintf(returnFile, "%d ", message_d[i]);
-
-    free(message_d);
-    message_d = NULL;
-
-    return 1;
-}
-
+// RECEBE ARQUIVO DE MENSAGEM CODIFICADA, ARQUIVO DE ESCRITA E UMA LISTA
+// DECODIFICA A MENSAGEM DE ACORDO COM A LISTA E ESCREVE NO ARQUIVO DE ESCRITA
+// RETORNA SUCCESS CASO FUNCIONAR E FAILURE CASO CONTRÁRIO
 int decypherMessage(FILE* message, FILE* returnFile, list_t* list) {
     char* mensagem_d = malloc(sizeof(char));
     int size = 0;

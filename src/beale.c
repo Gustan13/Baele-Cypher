@@ -4,6 +4,9 @@
 #include <getopt.h>
 
 #include "cypherlib.h"
+#include "conceal.h"
+#include "deconceal.h"
+#include "linkedlib.h"
 
 #define ASCII_TABLE 127
 #define ASCII_RAND_OFFSET 94

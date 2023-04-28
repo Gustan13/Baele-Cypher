@@ -1,3 +1,6 @@
+#ifndef __linkedlib__
+#define __linkedlib__
+
 #define MAX_CODES 100
 
 typedef struct letter {
@@ -32,3 +35,5 @@ int hasLetter(list_t* list, char letter);
 int addCode(list_t* list, char letter, int num);
 
 int printList(list_t* list);
+
+#endif
