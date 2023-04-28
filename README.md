@@ -1,6 +1,6 @@
 # Beale-Cypher Introduction
 
-A program that cyphers and decyphers messages according to the Beale Cypher method. This program was written in
+A program that cyphers and decyphers messages according to the Beale Cypher method. This program was written in:
 
 [![My Skills](https://skillicons.dev/icons?i=c)](https://skillicons.dev)
 
