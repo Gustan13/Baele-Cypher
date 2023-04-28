@@ -36,4 +36,6 @@ int addCode(list_t* list, char letter, int num);
 
 int printList(list_t* list);
 
+int binarySearch(int* codes, int numCodes, int num);
+
 #endif

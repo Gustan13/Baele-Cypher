@@ -62,14 +62,37 @@ letter_t* findLetter(list_t* list, char letter) {
     return NULL;
 }
 
+// RECEBE LISTA DE INT, TAMANHO DA LISTA E O NÚMERO A SER ENCONTRADO
+// RETORNA 1 CASO ENCONTRADO O NÚMERO E 0 CASO CONTRÁRIO
+int binarySearch(int* codes, int numCodes, int num) {
+    int a = 0;
+    int b = numCodes - 1;
+    int m;
+
+    while (a <= b) {
+        m = (a + b) / 2;
+
+        if (codes[m] == num)
+            return 1;
+        else if (codes[m] > num)
+            b = m - 1;
+        else
+            a = m + 1;
+    }
+    
+    return 0;
+}
+
 // RECEBE UMA LISTA E UM INT
 // ENCONTRA O CHAR DO NODO QUE POSSUI O INT COMO CÓDIGO
 char findLetterFromNum(list_t* list, int num) {
     for (letter_t* i = list->first; i != NULL; i = i->prox) {
-        for (int j = 0; j < i->numCodes; j++) {
-            if (i->codes[j] == num)
-                return i->character;
-        }
+        if (binarySearch(i->codes, i->numCodes, num))
+            return i->character;
+        // for (int j = 0; j < i->numCodes; j++) {
+        //     if (i->codes[j] == num)
+        //         return i->character;
+        // }
     }
     return 32;
 }

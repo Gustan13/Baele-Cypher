@@ -68,4 +68,7 @@ int insertLetter(list_t* list, letter_t* letterNode);
 int hasLetter(list_t* list, char letter);
 int addCode(list_t* list, char letter, int num);
 int printList(list_t* list);
+int binarySearch(int* codes, int numCodes, int num);
 ```
+
+I also made a binary search algorithm to make the search for letter codes quickly.
