@@ -1,58 +1,42 @@
-# Name of the project
-PROJ_NAME=beale
+NOME=beale
 
-# .c files
-C_SOURCE=$(wildcard ./src/*.c)
+CFILES=$(wildcard ./src/*.c)
 
-# .h files
-H_SOURCE=$(wildcard ./include/*.h)
+HFILES=$(wildcard ./include/*.h)
 
-# Object files
-OBJ=$(subst .c,.o,$(subst src,objects,$(C_SOURCE)))
+OBJ=$(subst .c,.o,$(subst src,objetos,$(CFILES)))
 
-# Compiler and linker
 CC=gcc
 
-# Flags for compiler
-CFLAGS=-c         \
-         -W         \
-         -Wall      \
-		 -I ./include \
-		 -std=c99   \
+CFLAGS=-c -W -Wall -I ./include -std=c99
 
-# Command used at clean target
 RM = rm -rf
 
-# Compilation and linking
-all: objFolder $(PROJ_NAME)
+all: object_dir $(NOME)
  
-$(PROJ_NAME): $(OBJ)
+$(NOME): $(OBJ)
 	$(CC) $^ -o $@ 
  
-./objects/%.o: ./src/%.c ./include/%.h
+./objetos/%.o: ./src/%.c ./include/%.h
 	$(CC) $< $(CFLAGS) -o $@
  
-./objects/beale.o: ./src/beale.c $(H_SOURCE)
+./objetos/beale.o: ./src/beale.c $(HFILES)
 	$(CC) $< $(CFLAGS) -o $@
  
-objFolder:
-	@mkdir -p objects
+object_dir:
+	@mkdir -p objetos
  
 clean:
-	$(RM) ./objects/*.o $(PROJ_NAME) *~
+	$(RM) ./objetos/*.o $(NOME) *~
  
 purge: clean
-	$(RM) ./objects
+	$(RM) ./objetos
 	
-# ./beale  -e  -b LivroCifra -m MensagemOriginal -o MensagemCodificada -c ArquivoDeChaves
-# ./beale  -d  -i MensagemCodificada  -c ArquivoDeChaves  -o MensagemDecodificada
-# ./beale -d -i MensagemCodificada -b LivroCifra -o MensagemDecodificada
 test:
-	./$(PROJ_NAME) -e -b LivroCifra.txt -m MensagemOriginal.txt -o MensagemCodificada.txt -c ArquivoDeChaves.txt
-	./$(PROJ_NAME) -d -i MensagemCodificada.txt -c ArquivoDeChaves.txt -o MensagemDecodificada.txt
-	./$(PROJ_NAME) -d -i MensagemCodificada.txt -b LivroCifra.txt -o MensagemDecodificada2.txt
+	./$(NOME) -e -b LivroCifra.txt -m MensagemOriginal.txt -o MensagemCodificada.txt -c ArquivoDeChaves.txt
+	./$(NOME) -d -i MensagemCodificada.txt -c ArquivoDeChaves.txt -o MensagemDecodificada.txt
+	./$(NOME) -d -i MensagemCodificada.txt -b LivroCifra.txt -o MensagemDecodificada2.txt
 
-# -w to ignore whitespaces
 check:
 	diff -w MensagemOriginal.txt MensagemDecodificada.txt
 	diff -w MensagemOriginal.txt MensagemDecodificada2.txt
