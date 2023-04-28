@@ -142,7 +142,7 @@ int addCode(list_t* list, char letter, int num) {
 
 // RECEBE LISTA
 // IMPRIME A LISTA PARA O STDOUT
-int printAlpha(list_t* list) {
+int printlist(list_t* list) {
     for (letter_t* i = list->first; i != NULL; i = i->prox) {
         printf("%c : ", i->character);
         for (int j = 0; j < i->numCodes; j++) {
