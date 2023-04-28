@@ -16,7 +16,7 @@ usage:
 >
 > ./beale -d -i MensagemCodificada -b LivroCifra -o MensagemDecodificada
 
-*Made by Gustavo Isoo Binder*
+*Made by Gustavo Isoo Binder* GRR20221242
 
 # Libraries
 
