@@ -5,6 +5,7 @@ A program that cyphers and decyphers messages according to the Beale Cypher meth
 [![My Skills](https://skillicons.dev/icons?i=c)](https://skillicons.dev)
 
 To compile the program, open the terminal in the same folder as the source code and run `make`.
+
 The files must have the .txt extention in order for the program to properly function. Also, the files must be in the same directory as the program.
 
 usage:
